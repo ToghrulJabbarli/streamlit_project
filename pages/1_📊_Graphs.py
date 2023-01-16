@@ -1,22 +1,15 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import mpld3
-import streamlit.components.v1 as components
 import altair as alt
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
 import streamlit as st
 
 df = pd.read_csv('heart.csv')
 st.set_page_config(layout='wide')
-st.sidebar.header("Graphs")
+st.markdown("""
+# Data Visualization
+Altair package is used for plotting graphs.
+""")
 
-
-st.title("Raw Heart.csv data")
+st.header("Heart Diseases Dataset")
 st.write(df)
 
 # first column line
@@ -41,7 +34,7 @@ st.markdown(
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.title('Age vs Cholesterol')
+    st.header('Age vs Cholesterol')
     age_bar = alt.Chart(df).mark_bar().encode(
         x=alt.X('Age'),
         y=alt.Y('Cholesterol'),
@@ -49,14 +42,14 @@ with col1:
     st.altair_chart(age_bar)
 
 with col2:
-    st.title('Age vs RestingBP')
+    st.header('Age vs RestingBP')
     age_scatter = alt.Chart(df).mark_square().encode(
         x=alt.X('Age', scale=alt.Scale(domain=(20, 80))),
         y=alt.Y('RestingBP'),
     ).interactive()
     st.altair_chart(age_scatter)
 with col3:
-    st.title('Age vs MaxHR')
+    st.header('Age vs MaxHR')
 
     step=alt.Chart(df).mark_line().encode(
         x='Age',
@@ -84,7 +77,7 @@ st.markdown(
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.title('Total ChestPaintType')
+    st.header('Total ChestPaintType')
     df_g = df.groupby(['ChestPainType'])['ChestPainType'].count()
     df_group = df_g.to_frame()
     df_group['Types'] = df_group.index
@@ -101,7 +94,7 @@ with col1:
     st.altair_chart(layer)
 
 with col2:
-    st.title('Total ST_Slope')
+    st.header('Total ST_Slope')
     percentage = alt.Chart(df).transform_aggregate(
         total='count(ST_Slope)',
         groupby=['ST_Slope'],
@@ -114,7 +107,7 @@ with col2:
     ).interactive()
     st.altair_chart(percentage)
 with col3:
-    st.title('Total Sex Distribution')
+    st.header('Total Sex Distribution')
     a=alt.Chart(df).transform_aggregate(
         total='count(Sex)',
         groupby=['Sex'],
@@ -123,4 +116,3 @@ with col3:
         color=alt.Color(field="Sex", type="nominal"),
     ).interactive()
     st.altair_chart(a)
-

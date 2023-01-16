@@ -12,33 +12,22 @@ import streamlit as st
 df = pd.read_csv('heart.csv')
 true_values = df['HeartDisease']
 st.set_page_config(layout='wide')
-st.sidebar.success("Select a demo above.")
+st.markdown("""
+# Machine Learning Algorithm Performances
+Heart Diseases dataset is used.
+This data set dates from 1988 and consists of four databases: Cleveland, Hungary, Switzerland, and Long Beach V. 
+It contains 76 attributes, including the predicted attribute, 
+but all published experiments refer to using a subset of 14 of them.
+The "target" field refers to the presence of heart disease in the patient. 
+It is integer valued 0 = no disease and 1 = disease.
+""")
+tab1, tab2 = st.tabs(["Raw Data", "Processed data"])
 
-# KNN Model
-st.markdown(
-    """
-    <style>
-        div[data-testid="column"]:nth-of-type(1)
-        {
-            border:0px solid red;
-        } 
-
-        div[data-testid="column"]:nth-of-type(2)
-        {
-            border:0px solid blue;
-            text-align: left;
-        } 
-    </style>
-    """, unsafe_allow_html=True
-)
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.title('Raw Data')
+with tab1:
+    st.header("Raw Data")
     st.write(df)
 
-with col2:
+with tab2:
     df['Sex'].replace('M', 0, inplace=True)
     df['Sex'].replace('F', 1, inplace=True)
     df['ExerciseAngina'].replace('N', 0, inplace=True)
@@ -53,7 +42,7 @@ with col2:
     df['ChestPainType'].replace('NAP', 1, inplace=True)
     df['ChestPainType'].replace('ASY', 2, inplace=True)
     df['ChestPainType'].replace('TA', 3, inplace=True)
-    st.title('Data after preprocessed')
+    st.header("Data after preprocessed")
     st.write(df)
 
 X = df.iloc[:, 0:11]
@@ -79,7 +68,6 @@ y_pred_nb = classifier.predict(X_test)
 confusion_matrix_nb = confusion_matrix(y_test, y_pred_nb)
 
 
-
 st.title('K-Nearest Neighbor Model Result')
 # second column line
 st.markdown(
@@ -102,12 +90,12 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    st.title('Confusion matrix')
+    st.header('Confusion matrix')
     st.write(confusion_data)
 with col2:
-    result = 'Accuracy: ' + str(round(accuracy_score(y_test, y_pred), 2))
-    st.title('Accuracy Result')
-    st.write(result)
+    result = str(round(accuracy_score(y_test, y_pred), 2))
+    st.header('Accuracy Result')
+    st.metric(label="Percentage", value=result+"%")
 
 # NaiveBayes
 st.title('Gaussian Naive Bayes Model Result')
@@ -132,12 +120,12 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    st.title('Confusion matrix')
+    st.header('Confusion matrix')
     st.write(confusion_matrix_nb)
 with col2:
-    result = 'Accuracy: ' + str(round(accuracy_score(y_test, y_pred_nb), 2))
-    st.title('Accuracy Result')
-    st.write(result)
+    result =str(round(accuracy_score(y_test, y_pred_nb), 2))
+    st.header('Accuracy Result')
+    st.metric(label="Percentage", value=result+"%")
 
 
 classifier1 = LogisticRegression(random_state=0)
@@ -169,12 +157,12 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    st.title('Confusion matrix')
+    st.header('Confusion matrix')
     st.write(confusion_matrix_lr)
 with col2:
-    result = 'Accuracy: ' + str(round(accuracy_score(y_test, y_pred_lr), 2))
-    st.title('Accuracy Result')
-    st.write(result)
+    result = str(round(accuracy_score(y_test, y_pred_lr), 2))
+    st.header('Accuracy Result')
+    st.metric(label="Percentage", value=result+"%")
 # Decision Trees
 
 classifier2 = DecisionTreeClassifier(criterion='entropy', random_state=0)
@@ -196,7 +184,7 @@ st.markdown(
         div[data-testid="column"]:nth-of-type(2)
         {
             border:0px solid blue;
-            text-align: center;
+            text-align: left;
         } 
     </style>
     """, unsafe_allow_html=True
@@ -205,9 +193,10 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    st.title('Confusion matrix')
+    st.header('Confusion matrix')
     st.write(confusion_matrix_dt)
 with col2:
-    result = 'Accuracy: ' + str(round(accuracy_score(y_test, y_pred_dt), 2))
-    st.title('Accuracy Result')
-    st.write(result)
+    result = str(round(accuracy_score(y_test, y_pred_dt), 2))
+    st.header('Accuracy Result')
+    st.metric(label="Percentage", value=result+"%")
+
