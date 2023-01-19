@@ -1,4 +1,5 @@
 import pandas as pd
+import sklearn
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
