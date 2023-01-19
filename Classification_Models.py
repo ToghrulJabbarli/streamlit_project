@@ -11,7 +11,8 @@ import streamlit as st
 
 df = pd.read_csv('heart.csv')
 true_values = df['HeartDisease']
-st.set_page_config(layout='wide')
+st.set_page_config(layout='wide',
+                   page_icon='🧠')
 st.markdown("""
 # Machine Learning Algorithm Performances
 Heart Diseases dataset is used.
