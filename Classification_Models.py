@@ -1,5 +1,4 @@
 import pandas as pd
-import sklearn
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -23,7 +22,7 @@ but all published experiments refer to using a subset of 14 of them.
 The "target" field refers to the presence of heart disease in the patient. 
 It is integer valued 0 = no disease and 1 = disease.
 """)
-tab1, tab2 = st.tabs(["Raw Data", "Processed data"])
+tab1, tab2 = st.tabs(["Raw Data", "Prepared Data"])
 
 with tab1:
     st.header("Raw Data")

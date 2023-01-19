@@ -2,7 +2,6 @@ import pandas as pd
 import altair as alt
 import numpy as np
 import streamlit as st
-import scipy
 from scipy.stats import norm, stats
 
 df = pd.read_csv('nobel_prize_by_winner.csv')
