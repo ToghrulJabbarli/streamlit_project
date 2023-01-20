@@ -60,11 +60,11 @@ col1, col2, col3= st.columns(3)
 with col1:
     st.header('Total Winners by Age')
     age_total = alt.Chart(df).transform_aggregate(
-        total='count(Age)',
+        Total='count(Age)',
         groupby=['Age'],
     ).mark_bar().encode(
         alt.X('Age:N'),
-        alt.Y('total:Q'),
+        alt.Y('Total:Q'),
         color=alt.value('#39E0F4'),
     ).properties(
         width=450,
@@ -105,11 +105,11 @@ with col2:
     """)
 with col3:
     st.header('Age vs Z Values')
-    df['zscores'] = stats.zscore(df['Age'])
+    df['Z Values'] = stats.zscore(df['Age'])
     df['Norm'] = norm.cdf(df['Age'])
     zscore = alt.Chart(df).mark_line().encode(
         x=alt.X('Age', scale=alt.Scale(domain=(20, 100))),
-        y=alt.Y('zscores', scale=alt.Scale(domain=(-3, 3)))
+        y=alt.Y('Z Values', scale=alt.Scale(domain=(-3, 3)))
     )
     st.altair_chart(zscore)
     st.markdown("""
